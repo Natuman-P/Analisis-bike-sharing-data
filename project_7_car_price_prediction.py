@@ -32,7 +32,7 @@ def display_data_table(data, title):
 
 # Main Streamlit app
 def main():
-    st.title("Car Price Prediction")
+    st.title("Prediksi Harga Mobil")
 
     # Sidebar for uploading files
     st.sidebar.title("Upload Files")
@@ -77,14 +77,14 @@ def main():
         training_data_prediction = lin_reg_model.predict(X_train)
         train_error = metrics.r2_score(Y_train, training_data_prediction)
 
-        fig_train = plot_scatter(Y_train, training_data_prediction, "Actual Prices vs Predicted Prices (Train)")
+        fig_train = plot_scatter(Y_train, training_data_prediction, "Harga yang sebenarnya vs Harga yang diprediksi (Latihan)")
         st.pyplot(fig_train)
         display_data_table(pd.DataFrame({'Actual Price': Y_train, 'Predicted Price': training_data_prediction}), "Training")
 
         test_data_prediction = lin_reg_model.predict(X_test)
         test_error = metrics.r2_score(Y_test, test_data_prediction)
 
-        fig_test = plot_scatter(Y_test, test_data_prediction, "Actual Prices vs Predicted Prices (Test)")
+        fig_test = plot_scatter(Y_test, test_data_prediction, "Harga yang sebenarnya vs Harga yang diprediksi (Test)")
         st.pyplot(fig_test)
         display_data_table(pd.DataFrame({'Actual Price': Y_test, 'Predicted Price': test_data_prediction}), "Test")
 
