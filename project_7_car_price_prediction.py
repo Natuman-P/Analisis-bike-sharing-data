@@ -20,7 +20,7 @@ from sklearn import metrics
 """Data Collection and Processing"""
 
 # loading the data from csv file to pandas dataframe
-car_dataset = pd.read_csv('/content/car data.csv')
+car_dataset = pd.read_csv('data.csv')
 
 # inspecting the first 5 rows of the dataframe
 car_dataset.head()
