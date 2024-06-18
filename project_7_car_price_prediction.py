@@ -25,10 +25,7 @@ def plot_scatter(x, y, title):
     ax.set_title(title)
     return fig
 
-# Function to display data in a table below the plot
-def display_data_table(data, title):
-    st.write(f"### {title} Data:")
-    st.write(data)
+#here
 
 # Main Streamlit app
 def main():
