@@ -32,28 +32,28 @@ def display_data_table(data, title):
 
 # Main Streamlit app
 def main():
-    st.title("Car Price Prediction")
+    st.title("Prediksi Harga Mobil")
 
     # Sidebar for uploading files
     st.sidebar.title("Upload Files")
-    training_file = st.sidebar.file_uploader("Upload Training Data (CSV)", type=['csv'])
-    testing_file = st.sidebar.file_uploader("Upload Testing Data (CSV)", type=['csv'])
+    training_file = st.sidebar.file_uploader("Upload Data Latihan (CSV)", type=['csv'])
+    testing_file = st.sidebar.file_uploader("Upload Data Test (CSV)", type=['csv'])
 
     if training_file and testing_file:
-        st.sidebar.info("Files uploaded successfully!")
+        st.sidebar.info("File berhasil di upload")
 
         # Load training and testing data
         train_data = load_data(training_file)
         test_data = load_data(testing_file)
 
         # Display data and basic info
-        st.write("### Training Data:")
+        st.write("### Data Latihan:")
         st.write(train_data.head())
         st.write(train_data.shape)
         st.write(train_data.info())
         st.write(train_data.isnull().sum())
 
-        st.write("### Testing Data:")
+        st.write("### Data Test:")
         st.write(test_data.head())
         st.write(test_data.shape)
         st.write(test_data.info())
@@ -79,14 +79,14 @@ def main():
 
         fig_train = plot_scatter(Y_train, training_data_prediction, "Harga yang sebenarnya vs harga Harga yang di prediksi (Latihan)")
         st.pyplot(fig_train)
-        display_data_table(pd.DataFrame({'Actual Price': Y_train, 'Predicted Price': training_data_prediction}), "Training")
+        display_data_table(pd.DataFrame({'Harga yang sebenarnya': Y_train, 'Harga yang di prediksi': training_data_prediction}), "Latihan")
 
         test_data_prediction = lin_reg_model.predict(X_test)
         test_error = metrics.r2_score(Y_test, test_data_prediction)
 
         fig_test = plot_scatter(Y_test, test_data_prediction, "Harga yang sebenarnya vs harga Harga yang di prediksi (Test)")
         st.pyplot(fig_test)
-        display_data_table(pd.DataFrame({'Actual Price': Y_test, 'Predicted Price': test_data_prediction}), "Test")
+        display_data_table(pd.DataFrame({'Harga yang sebenarnya': Y_test, 'Harga yang di prediksi': test_data_prediction}), "Test")
 
         # Model Training and Evaluation - Lasso Regression
         lasso_reg_model = Lasso()
@@ -97,14 +97,14 @@ def main():
 
         fig_train_lasso = plot_scatter(Y_train, training_data_prediction_lasso, "Harga yang sebenarnya vs harga Harga yang di prediksi (Latihan) - Lasso")
         st.pyplot(fig_train_lasso)
-        display_data_table(pd.DataFrame({'Actual Price': Y_train, 'Predicted Price': training_data_prediction_lasso}), "Training - Lasso")
+        display_data_table(pd.DataFrame({'Harga yang sebenarnya': Y_train, 'Harga yang di prediksi': training_data_prediction_lasso}), "Latihan - Lasso")
 
         test_data_prediction_lasso = lasso_reg_model.predict(X_test)
         test_error_lasso = metrics.r2_score(Y_test, test_data_prediction_lasso)
 
         fig_test_lasso = plot_scatter(Y_test, test_data_prediction_lasso, "Harga yang sebenarnya vs harga Harga yang di prediksi (Test) - Lasso")
         st.pyplot(fig_test_lasso)
-        display_data_table(pd.DataFrame({'Actual Price': Y_test, 'Predicted Price': test_data_prediction_lasso}), "Test - Lasso")
+        display_data_table(pd.DataFrame({'Harga yang sebenarnya': Y_test, 'Harga yang di prediksi': test_data_prediction_lasso}), "Test - Lasso")
 
         # Closing figures to release resources (optional)
         plt.close(fig_train)
@@ -113,7 +113,7 @@ def main():
         plt.close(fig_test_lasso)
 
     else:
-        st.info("Please upload both training and testing CSV files in the sidebar.")
+        st.info("Tolong upload data CSV.")
 
 if __name__ == '__main__':
     main()
