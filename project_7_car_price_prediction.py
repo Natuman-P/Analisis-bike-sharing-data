@@ -8,7 +8,8 @@ from sklearn import metrics
 # Function to load data and process it
 def load_data(filename):
     try:
-        return pd.read_csv(filename)
+        # Load CSV and explicitly specify data types
+        return pd.read_csv(filename, dtype={'Fuel_Type': str, 'Seller_Type': str, 'Transmission': str})
     except FileNotFoundError:
         st.error(f"Could not find the file: {filename}")
         st.stop()
