@@ -64,11 +64,6 @@ def main():
         train_data = pd.get_dummies(train_data, columns=['Fuel_Type', 'Seller_Type', 'Transmission'], drop_first=True)
         test_data = pd.get_dummies(test_data, columns=['Fuel_Type', 'Seller_Type', 'Transmission'], drop_first=True)
 
-        # Check if both datasets have the same columns after encoding
-        if set(train_data.columns) != set(test_data.columns):
-            st.error("Columns in training and testing data do not match. Please check and re-upload files.")
-            st.stop()
-
         # Splitting the data and Target
         X_train = train_data.drop(['Car_Name', 'Selling_Price'], axis=1)
         Y_train = train_data['Selling_Price']
