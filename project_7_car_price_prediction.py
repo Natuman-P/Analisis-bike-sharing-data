@@ -20,8 +20,8 @@ def load_data(filename):
 def plot_scatter(x, y, title):
     fig, ax = plt.subplots()
     ax.scatter(x, y)
-    ax.set_xlabel("Actual Price")
-    ax.set_ylabel("Predicted Price")
+    ax.set_xlabel("Harga yang sebenarnya")
+    ax.set_ylabel("Harga yang di prediksi")
     ax.set_title(title)
     return fig
 
@@ -77,14 +77,14 @@ def main():
         training_data_prediction = lin_reg_model.predict(X_train)
         train_error = metrics.r2_score(Y_train, training_data_prediction)
 
-        fig_train = plot_scatter(Y_train, training_data_prediction, "Actual Prices vs Predicted Prices (Train)")
+        fig_train = plot_scatter(Y_train, training_data_prediction, "Harga yang sebenarnya vs harga Harga yang di prediksi (Latihan)")
         st.pyplot(fig_train)
         display_data_table(pd.DataFrame({'Actual Price': Y_train, 'Predicted Price': training_data_prediction}), "Training")
 
         test_data_prediction = lin_reg_model.predict(X_test)
         test_error = metrics.r2_score(Y_test, test_data_prediction)
 
-        fig_test = plot_scatter(Y_test, test_data_prediction, "Actual Prices vs Predicted Prices (Test)")
+        fig_test = plot_scatter(Y_test, test_data_prediction, "Harga yang sebenarnya vs harga Harga yang di prediksi (Test)")
         st.pyplot(fig_test)
         display_data_table(pd.DataFrame({'Actual Price': Y_test, 'Predicted Price': test_data_prediction}), "Test")
 
@@ -95,14 +95,14 @@ def main():
         training_data_prediction_lasso = lasso_reg_model.predict(X_train)
         train_error_lasso = metrics.r2_score(Y_train, training_data_prediction_lasso)
 
-        fig_train_lasso = plot_scatter(Y_train, training_data_prediction_lasso, "Actual Prices vs Predicted Prices (Train) - Lasso")
+        fig_train_lasso = plot_scatter(Y_train, training_data_prediction_lasso, "Harga yang sebenarnya vs harga Harga yang di prediksi (Latihan) - Lasso")
         st.pyplot(fig_train_lasso)
         display_data_table(pd.DataFrame({'Actual Price': Y_train, 'Predicted Price': training_data_prediction_lasso}), "Training - Lasso")
 
         test_data_prediction_lasso = lasso_reg_model.predict(X_test)
         test_error_lasso = metrics.r2_score(Y_test, test_data_prediction_lasso)
 
-        fig_test_lasso = plot_scatter(Y_test, test_data_prediction_lasso, "Actual Prices vs Predicted Prices (Test) - Lasso")
+        fig_test_lasso = plot_scatter(Y_test, test_data_prediction_lasso, "Harga yang sebenarnya vs harga Harga yang di prediksi (Test) - Lasso")
         st.pyplot(fig_test_lasso)
         display_data_table(pd.DataFrame({'Actual Price': Y_test, 'Predicted Price': test_data_prediction_lasso}), "Test - Lasso")
 
