@@ -63,6 +63,11 @@ def main():
         train_data = pd.get_dummies(train_data, columns=['Fuel_Type', 'Seller_Type', 'Transmission'], drop_first=True)
         test_data = pd.get_dummies(test_data, columns=['Fuel_Type', 'Seller_Type', 'Transmission'], drop_first=True)
 
+        # Check if both datasets have the same columns after encoding
+        if set(train_data.columns) != set(test_data.columns):
+            st.error("Columns in training and testing data do not match. Please check and re-upload files.")
+            st.stop()
+
         # Splitting the data and Target
         X_train = train_data.drop(['Car_Name', 'Selling_Price'], axis=1)
         Y_train = train_data['Selling_Price']
@@ -77,16 +82,16 @@ def main():
         training_data_prediction = lin_reg_model.predict(X_train)
         train_error = metrics.r2_score(Y_train, training_data_prediction)
 
-        fig_train = plot_scatter(Y_train, training_data_prediction, "Harga yang sebenarnya vs Harga yang diprediksi (Latihan)")
+        fig_train = plot_scatter(Y_train, training_data_prediction, "Actual Prices vs Predicted Prices (Train) - Linear Regression")
         st.pyplot(fig_train)
-        display_data_table(pd.DataFrame({'Actual Price': Y_train, 'Predicted Price': training_data_prediction}), "Training")
+        display_data_table(pd.DataFrame({'Actual Price': Y_train, 'Predicted Price': training_data_prediction}), "Training - Linear Regression")
 
         test_data_prediction = lin_reg_model.predict(X_test)
         test_error = metrics.r2_score(Y_test, test_data_prediction)
 
-        fig_test = plot_scatter(Y_test, test_data_prediction, "Harga yang sebenarnya vs Harga yang diprediksi (Test)")
+        fig_test = plot_scatter(Y_test, test_data_prediction, "Actual Prices vs Predicted Prices (Test) - Linear Regression")
         st.pyplot(fig_test)
-        display_data_table(pd.DataFrame({'Actual Price': Y_test, 'Predicted Price': test_data_prediction}), "Test")
+        display_data_table(pd.DataFrame({'Actual Price': Y_test, 'Predicted Price': test_data_prediction}), "Test - Linear Regression")
 
         # Model Training and Evaluation - Lasso Regression
         lasso_reg_model = Lasso()
@@ -95,16 +100,16 @@ def main():
         training_data_prediction_lasso = lasso_reg_model.predict(X_train)
         train_error_lasso = metrics.r2_score(Y_train, training_data_prediction_lasso)
 
-        fig_train_lasso = plot_scatter(Y_train, training_data_prediction_lasso, "Actual Prices vs Predicted Prices (Train) - Lasso")
+        fig_train_lasso = plot_scatter(Y_train, training_data_prediction_lasso, "Actual Prices vs Predicted Prices (Train) - Lasso Regression")
         st.pyplot(fig_train_lasso)
-        display_data_table(pd.DataFrame({'Actual Price': Y_train, 'Predicted Price': training_data_prediction_lasso}), "Training - Lasso")
+        display_data_table(pd.DataFrame({'Actual Price': Y_train, 'Predicted Price': training_data_prediction_lasso}), "Training - Lasso Regression")
 
         test_data_prediction_lasso = lasso_reg_model.predict(X_test)
         test_error_lasso = metrics.r2_score(Y_test, test_data_prediction_lasso)
 
-        fig_test_lasso = plot_scatter(Y_test, test_data_prediction_lasso, "Actual Prices vs Predicted Prices (Test) - Lasso")
+        fig_test_lasso = plot_scatter(Y_test, test_data_prediction_lasso, "Actual Prices vs Predicted Prices (Test) - Lasso Regression")
         st.pyplot(fig_test_lasso)
-        display_data_table(pd.DataFrame({'Actual Price': Y_test, 'Predicted Price': test_data_prediction_lasso}), "Test - Lasso")
+        display_data_table(pd.DataFrame({'Actual Price': Y_test, 'Predicted Price': test_data_prediction_lasso}), "Test - Lasso Regression")
 
         # Closing figures to release resources (optional)
         plt.close(fig_train)
