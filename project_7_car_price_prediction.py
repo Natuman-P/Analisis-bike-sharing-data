@@ -49,14 +49,14 @@ def main():
         # Menampilkan data dan info dasar
         st.write("### Dataframe Data Latihan:")
         st.dataframe(train_data)
-        st.write("### Bentuk Data Frame:")
+        st.write("### Bentuk DataFrame:")
         st.write(train_data.shape)
         st.write("### Informasi Data Latihan:")
         st.write(train_data.info())
 
         st.write("### Dataframe Data Uji:")
         st.dataframe(test_data)
-        st.write("### Bentuk Data Frame:")
+        st.write("### Bentuk DataFrame:")
         st.write(test_data.shape)
         st.write("### Informasi Data Uji:")
         st.write(test_data.info())
@@ -88,7 +88,7 @@ def main():
         test_error = metrics.r2_score(Y_test, test_data_prediction)
 
         st.write("### Grafik Hasil Uji:")
-        fig_test = plot_scatter(Y_test, test_data_prediction, "Harga yang sebenarnya vs Harga yang diprediksi (Uji)")
+        fig_test = plot_scatter(Y_test, test_data_prediction, "Harga yang sebenarnya vs Harga yang diprediksi")
         st.pyplot(fig_test)
         display_data_table(pd.DataFrame({'Harga yang sebenarnya': Y_test, 'Harga yang diprediksi': test_data_prediction}), "Hasil Uji")
 
@@ -108,7 +108,7 @@ def main():
         test_error_lasso = metrics.r2_score(Y_test, test_data_prediction_lasso)
 
         st.write("### Grafik Hasil Uji:")
-        fig_test_lasso = plot_scatter(Y_test, test_data_prediction_lasso, "Harga yang sebenarnya vs Harga yang diprediksi (Uji)")
+        fig_test_lasso = plot_scatter(Y_test, test_data_prediction_lasso, "Harga yang sebenarnya vs Harga yang diprediksi")
         st.pyplot(fig_test_lasso)
         display_data_table(pd.DataFrame({'Harga yang sebenarnya': Y_test, 'Harga yang diprediksi': test_data_prediction_lasso}), "Hasil Uji")
 
