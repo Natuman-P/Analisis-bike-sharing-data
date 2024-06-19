@@ -48,7 +48,7 @@ def main():
 
         # Display data and basic info
         st.write("### Dataframe data latihan:")
-        st.write(train_data.df)
+        st.write(train_data.df())
         st.write("### Data Latihan (5 data pertama) :")
         st.write(train_data.head())
         st.write("### Bentuk Data Frame :")
@@ -59,7 +59,7 @@ def main():
         st.write(train_data.isnull().sum())
 
         st.write("### Dataframe data uji coba / Testing:")
-        st.write(test_data.df)
+        st.write(test_data.df())
         st.write("### Data uji coba / Testing (5 data pertama) :")
         st.write(test_data.head())
         st.write("### Bentuk Data Frame :")
