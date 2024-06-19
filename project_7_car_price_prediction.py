@@ -108,7 +108,7 @@ def main():
         st.write("### Grafik Hasil Testing:")
         fig_test_lasso = plot_scatter(Y_test, test_data_prediction_lasso, "Harga yang sebenarnya vs harga Harga yang di prediksi (Testing)")
         st.pyplot(fig_test_lasso)
-        display_data_table(pd.DataFrame({'Harga yang sebenarnya': Y_test, 'Harga yang di prediksi': test_data_prediction_lasso}), "Hasil uji coba / Testing dengan Lasso Regression")
+        display_data_table(pd.DataFrame({'Harga yang sebenarnya': Y_test, 'Harga yang di prediksi': test_data_prediction_lasso}), "Hasil Testing")
 
         # Closing figures to release resources (optional)
         plt.close(fig_train)
