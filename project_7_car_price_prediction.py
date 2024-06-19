@@ -47,16 +47,26 @@ def main():
         test_data = load_data(testing_file)
 
         # Display data and basic info
+        st.write("### Dataframe data latihan:")
+        st.write(train_data.df)
         st.write("### Data Latihan (5 data pertama) :")
         st.write(train_data.head())
+        st.write("### Bentuk Data Frame :")
         st.write(train_data.shape)
+        st.write("### Data Frame Info :")
         st.write(train_data.info())
+        st.write("### Nilai yang tidak ada atau hilang :")
         st.write(train_data.isnull().sum())
 
-        st.write("### Data Uji coba / Testing (5 data pertama) :")
+        st.write("### Dataframe data uji coba / Testing:")
+        st.write(test_data.df)
+        st.write("### Data uji coba / Testing (5 data pertama) :")
         st.write(test_data.head())
+        st.write("### Bentuk Data Frame :")
         st.write(test_data.shape)
+        st.write("### Data Frame Info :")
         st.write(test_data.info())
+        st.write("### Nilai yang tidak ada atau hilang :")
         st.write(test_data.isnull().sum())
 
         # Encoding categorical columns
