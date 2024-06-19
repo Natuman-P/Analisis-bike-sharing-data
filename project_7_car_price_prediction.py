@@ -46,9 +46,14 @@ def main():
         train_data = load_data(training_file)
         test_data = load_data(testing_file)
 
+        # Load the dataset
+        trainData_df = pd.read_csv(training_file)
+        testingData_df = pd.read_csv(testing_file)
+        
+
         # Display data and basic info
         st.write("### Dataframe data latihan:")
-        st.write(df)
+        st.write(trainData_df)
         st.write("### Data Latihan (5 data pertama) :")
         st.write(train_data.head())
         st.write("### Bentuk Data Frame :")
@@ -59,7 +64,7 @@ def main():
         st.write(train_data.isnull().sum())
 
         st.write("### Dataframe data uji coba / Testing:")
-        st.write(df)
+        st.write(testingData_df)
         st.write("### Data uji coba / Testing (5 data pertama) :")
         st.write(test_data.head())
         st.write("### Bentuk Data Frame :")
