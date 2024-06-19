@@ -49,14 +49,14 @@ def main():
         # Menampilkan data dan info dasar
         st.write("### Dataframe Data Latihan:")
         st.dataframe(train_data)
-        st.write("### Bentuk Data Frame (x = kolom y = baris):")
+        st.write("### Bentuk Data Frame:")
         st.write(train_data.shape)
         st.write("### Informasi Data Latihan:")
         st.write(train_data.info())
 
         st.write("### Dataframe Data Uji:")
         st.dataframe(test_data)
-        st.write("### Bentuk Data Frame (x = kolom y = baris):")
+        st.write("### Bentuk Data Frame:")
         st.write(test_data.shape)
         st.write("### Informasi Data Uji:")
         st.write(test_data.info())
