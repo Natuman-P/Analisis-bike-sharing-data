@@ -77,6 +77,8 @@ def main():
         training_data_prediction = lin_reg_model.predict(X_train)
         train_error = metrics.r2_score(Y_train, training_data_prediction)
 
+
+        st.write("Grafik hasil Latihan dengan Linear Regression:")
         fig_train = plot_scatter(Y_train, training_data_prediction, "Harga yang sebenarnya vs harga Harga yang di prediksi (Latihan)")
         st.pyplot(fig_train)
         display_data_table(pd.DataFrame({'Harga yang sebenarnya': Y_train, 'Harga yang di prediksi': training_data_prediction}), "Hasil Latihan dengan Linear Regression")
