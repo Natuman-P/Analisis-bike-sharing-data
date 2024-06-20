@@ -119,7 +119,7 @@ def main():
         plt.close(fig_test_lasso)
 
     else:
-        st.info("Silakan unggah file CSV untuk data uji.")
+        st.info("Silakan unggah file CSV (data_testing.csv) untuk data uji.")
 
 if __name__ == '__main__':
     main()
