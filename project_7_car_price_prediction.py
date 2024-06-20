@@ -1,7 +1,6 @@
 import streamlit as st
 import pandas as pd
 import matplotlib.pyplot as plt
-from sklearn.model_selection import train_test_split
 from sklearn.linear_model import LinearRegression, Lasso
 from sklearn import metrics
 
@@ -36,14 +35,15 @@ def main():
 
     # Sidebar untuk mengunggah file
     st.sidebar.title("Unggah File")
-    training_file = st.sidebar.file_uploader("Unggah Data Latihan (CSV)", type=['csv'])
     testing_file = st.sidebar.file_uploader("Unggah Data Uji (CSV)", type=['csv'])
 
-    if training_file and testing_file:
+    # Memuat data latihan dari file yang sudah ada
+    train_data = load_data('data_training.csv')
+
+    if testing_file:
         st.sidebar.info("File berhasil diunggah")
 
-        # Memuat data latihan dan uji
-        train_data = load_data(training_file)
+        # Memuat data uji
         test_data = load_data(testing_file)
 
         # Menampilkan data dan info dasar
@@ -119,7 +119,7 @@ def main():
         plt.close(fig_test_lasso)
 
     else:
-        st.info("Silakan unggah file CSV.")
+        st.info("Silakan unggah file CSV untuk data uji.")
 
 if __name__ == '__main__':
     main()
