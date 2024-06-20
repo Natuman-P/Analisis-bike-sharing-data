@@ -19,8 +19,8 @@ def load_data(filename):
 def plot_scatter(x, y, title):
     fig, ax = plt.subplots()
     ax.scatter(x, y)
-    ax.set_xlabel("Harga yang sebenarnya")
-    ax.set_ylabel("Harga yang diprediksi")
+    ax.set_xlabel("Harga yang sebenarnya (ribuan $)")
+    ax.set_ylabel("Harga yang diprediksi (ribuan $)")
     ax.set_title(title)
     return fig
 
@@ -82,7 +82,7 @@ def main():
         st.write("### Grafik Hasil Latihan dengan Regresi Linear:")
         fig_train = plot_scatter(Y_train, training_data_prediction, "Harga yang sebenarnya vs Harga yang diprediksi (Latihan)")
         st.pyplot(fig_train)
-        display_data_table(pd.DataFrame({'Harga yang sebenarnya (dalam ribuan $)': Y_train, 'Harga yang diprediksi (dalam ribuan $)': training_data_prediction}), "Hasil Latihan dengan Regresi Linear")
+        display_data_table(pd.DataFrame({'Harga yang sebenarnya (ribuan $)': Y_train, 'Harga yang diprediksi (ribuan $)': training_data_prediction}), "Hasil Latihan dengan Regresi Linear")
 
         test_data_prediction = lin_reg_model.predict(X_test)
         test_error = metrics.r2_score(Y_test, test_data_prediction)
@@ -90,7 +90,7 @@ def main():
         st.write("### Grafik Hasil Uji:")
         fig_test = plot_scatter(Y_test, test_data_prediction, "Harga yang sebenarnya vs Harga yang diprediksi")
         st.pyplot(fig_test)
-        display_data_table(pd.DataFrame({'Harga yang sebenarnya (dalam ribuan $)': Y_test, 'Harga yang diprediksi (dalam ribuan $)': test_data_prediction}), "Hasil Uji")
+        display_data_table(pd.DataFrame({'Harga yang sebenarnya (ribuan $)': Y_test, 'Harga yang diprediksi (ribuan $)': test_data_prediction}), "Hasil Uji")
 
         # Pelatihan Model dan Evaluasi - Lasso Regression
         lasso_reg_model = Lasso()
@@ -102,7 +102,7 @@ def main():
         st.write("### Grafik Hasil Latihan dengan Lasso Regression:")
         fig_train_lasso = plot_scatter(Y_train, training_data_prediction_lasso, "Harga yang sebenarnya vs Harga yang diprediksi (Latihan)")
         st.pyplot(fig_train_lasso)
-        display_data_table(pd.DataFrame({'Harga yang sebenarnya': Y_train, 'Harga yang diprediksi': training_data_prediction_lasso}), "Hasil Latihan dengan Lasso Regression")
+        display_data_table(pd.DataFrame({'Harga yang sebenarnya (ribuan $)': Y_train, 'Harga yang diprediksi (ribuan $)': training_data_prediction_lasso}), "Hasil Latihan dengan Lasso Regression")
 
         test_data_prediction_lasso = lasso_reg_model.predict(X_test)
         test_error_lasso = metrics.r2_score(Y_test, test_data_prediction_lasso)
@@ -110,7 +110,7 @@ def main():
         st.write("### Grafik Hasil Uji:")
         fig_test_lasso = plot_scatter(Y_test, test_data_prediction_lasso, "Harga yang sebenarnya vs Harga yang diprediksi")
         st.pyplot(fig_test_lasso)
-        display_data_table(pd.DataFrame({'Harga yang sebenarnya': Y_test, 'Harga yang diprediksi': test_data_prediction_lasso}), "Hasil Uji")
+        display_data_table(pd.DataFrame({'Harga yang sebenarnya (ribuan $)': Y_test, 'Harga yang diprediksi (ribuan $)': test_data_prediction_lasso}), "Hasil Uji")
 
         # Menutup figur untuk membebaskan sumber daya (opsional)
         plt.close(fig_train)
