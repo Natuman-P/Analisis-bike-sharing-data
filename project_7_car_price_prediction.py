@@ -82,7 +82,7 @@ def main():
         st.write("### Grafik Hasil Latihan dengan Regresi Linear:")
         fig_train = plot_scatter(Y_train, training_data_prediction, "Harga yang sebenarnya vs Harga yang diprediksi (Latihan)")
         st.pyplot(fig_train)
-        display_data_table(pd.DataFrame({'Harga yang sebenarnya': Y_train, 'Harga yang diprediksi': training_data_prediction}), "Hasil Latihan dengan Regresi Linear")
+        display_data_table(pd.DataFrame({'Harga yang sebenarnya (dalam ribuan $)': Y_train, 'Harga yang diprediksi (dalam ribuan $)': training_data_prediction}), "Hasil Latihan dengan Regresi Linear")
 
         test_data_prediction = lin_reg_model.predict(X_test)
         test_error = metrics.r2_score(Y_test, test_data_prediction)
@@ -90,7 +90,7 @@ def main():
         st.write("### Grafik Hasil Uji:")
         fig_test = plot_scatter(Y_test, test_data_prediction, "Harga yang sebenarnya vs Harga yang diprediksi")
         st.pyplot(fig_test)
-        display_data_table(pd.DataFrame({'Harga yang sebenarnya': Y_test, 'Harga yang diprediksi': test_data_prediction}), "Hasil Uji")
+        display_data_table(pd.DataFrame({'Harga yang sebenarnya (dalam ribuan $)': Y_test, 'Harga yang diprediksi (dalam ribuan $)': test_data_prediction}), "Hasil Uji")
 
         # Pelatihan Model dan Evaluasi - Lasso Regression
         lasso_reg_model = Lasso()
