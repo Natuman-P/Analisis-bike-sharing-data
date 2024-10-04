@@ -1,125 +1,41 @@
+
 import streamlit as st
 import pandas as pd
 import matplotlib.pyplot as plt
-from sklearn.linear_model import LinearRegression, Lasso
-from sklearn import metrics
+import seaborn as sns
 
-# Fungsi untuk memuat data dan memprosesnya
-def load_data(filename):
-    try:
-        return pd.read_csv(filename)
-    except FileNotFoundError:
-        st.error(f"Tidak dapat menemukan file: {filename}")
-        st.stop()
-    except Exception as e:
-        st.error(f"Error dalam memuat data: {str(e)}")
-        st.stop()
+# Judul aplikasi
+st.title('Dashboard Analisis Data Bike Sharing')
+st.markdown('Proyek Analisis Data oleh **Andes Potipera Sitepu**')
 
-# Fungsi untuk membuat scatter plot dan mengembalikan figur
-def plot_scatter(x, y, title):
+# Mengunggah data
+uploaded_file = st.file_uploader("Unggah file CSV dataset penggunaan sepeda", type="csv")
+
+if uploaded_file is not None:
+    # Membaca dataset
+    data = pd.read_csv(uploaded_file)
+    st.write("Dataframe:", data.head())
+
+    # Statistik Deskriptif
+    st.subheader("Statistik Deskriptif")
+    st.write(data.describe())
+
+    # Visualisasi Penggunaan Sepeda Berdasarkan Waktu
+    st.subheader("Penggunaan Sepeda Berdasarkan Waktu")
+    jam = st.selectbox("Pilih jam (0-23):", data['hour'].unique())
+    filtered_data = data[data['hour'] == jam]
+
     fig, ax = plt.subplots()
-    ax.scatter(x, y)
-    ax.set_xlabel("Harga yang sebenarnya (ribuan $)")
-    ax.set_ylabel("Harga yang diprediksi (ribuan $)")
-    ax.set_title(title)
-    return fig
+    sns.countplot(data=filtered_data, x='season', ax=ax)
+    ax.set_title(f"Penggunaan Sepeda pada Jam {jam} Berdasarkan Musim")
+    st.pyplot(fig)
 
-# Fungsi untuk menampilkan data dalam tabel di bawah plot
-def display_data_table(data, title):
-    st.write(f"### {title}")
-    st.dataframe(data)
+    # Visualisasi Pengaruh Suhu dan Kelembapan
+    st.subheader("Pengaruh Suhu dan Kelembapan terhadap Penggunaan Sepeda")
+    fig, ax = plt.subplots()
+    sns.scatterplot(data=data, x='temp', y='humidity', hue='count', ax=ax)
+    ax.set_title("Pengaruh Suhu dan Kelembapan terhadap Jumlah Penggunaan Sepeda")
+    st.pyplot(fig)
 
-# Aplikasi utama Streamlit
-def main():
-    st.title("Prediksi Harga Mobil")
-
-    # Sidebar untuk mengunggah file
-    st.sidebar.title("Unggah File")
-    testing_file = st.sidebar.file_uploader("Unggah Data Uji (CSV)", type=['csv'])
-
-    # Memuat data latihan dari file yang sudah ada
-    train_data = load_data('data_training.csv')
-
-    if testing_file:
-        st.sidebar.info("File berhasil diunggah")
-
-        # Memuat data uji
-        test_data = load_data(testing_file)
-
-        # Menampilkan data dan info dasar
-        st.write("### Dataframe Data Latihan:")
-        st.dataframe(train_data)
-        st.write("### Bentuk DataFrame:")
-        st.write(train_data.shape)
-        st.write("### Informasi Data Latihan:")
-        st.write(train_data.info())
-
-        st.write("### Dataframe Data Uji:")
-        st.dataframe(test_data)
-        st.write("### Bentuk DataFrame:")
-        st.write(test_data.shape)
-        st.write("### Informasi Data Uji:")
-        st.write(test_data.info())
-
-        # Encoding kolom kategorikal
-        train_data = pd.get_dummies(train_data, columns=['Fuel_Type', 'Seller_Type', 'Transmission'], drop_first=True)
-        test_data = pd.get_dummies(test_data, columns=['Fuel_Type', 'Seller_Type', 'Transmission'], drop_first=True)
-
-        # Memisahkan data dan target
-        X_train = train_data.drop(['Car_Name', 'Selling_Price'], axis=1)
-        Y_train = train_data['Selling_Price']
-
-        X_test = test_data.drop(['Car_Name', 'Selling_Price'], axis=1)
-        Y_test = test_data['Selling_Price']
-
-        # Pelatihan Model dan Evaluasi - Regresi Linear
-        lin_reg_model = LinearRegression()
-        lin_reg_model.fit(X_train, Y_train)
-
-        training_data_prediction = lin_reg_model.predict(X_train)
-        train_error = metrics.r2_score(Y_train, training_data_prediction)
-
-        st.write("### Grafik Hasil Latihan dengan Regresi Linear:")
-        fig_train = plot_scatter(Y_train, training_data_prediction, "Harga yang sebenarnya vs Harga yang diprediksi (Latihan)")
-        st.pyplot(fig_train)
-        display_data_table(pd.DataFrame({'Harga yang sebenarnya (ribuan $)': Y_train, 'Harga yang diprediksi (ribuan $)': training_data_prediction}), "Hasil Latihan dengan Regresi Linear")
-
-        test_data_prediction = lin_reg_model.predict(X_test)
-        test_error = metrics.r2_score(Y_test, test_data_prediction)
-
-        st.write("### Grafik Hasil Uji:")
-        fig_test = plot_scatter(Y_test, test_data_prediction, "Harga yang sebenarnya vs Harga yang diprediksi")
-        st.pyplot(fig_test)
-        display_data_table(pd.DataFrame({'Harga yang sebenarnya (ribuan $)': Y_test, 'Harga yang diprediksi (ribuan $)': test_data_prediction}), "Hasil Uji")
-
-        # Pelatihan Model dan Evaluasi - Lasso Regression
-        lasso_reg_model = Lasso()
-        lasso_reg_model.fit(X_train, Y_train)
-
-        training_data_prediction_lasso = lasso_reg_model.predict(X_train)
-        train_error_lasso = metrics.r2_score(Y_train, training_data_prediction_lasso)
-
-        st.write("### Grafik Hasil Latihan dengan Lasso Regression:")
-        fig_train_lasso = plot_scatter(Y_train, training_data_prediction_lasso, "Harga yang sebenarnya vs Harga yang diprediksi (Latihan)")
-        st.pyplot(fig_train_lasso)
-        display_data_table(pd.DataFrame({'Harga yang sebenarnya (ribuan $)': Y_train, 'Harga yang diprediksi (ribuan $)': training_data_prediction_lasso}), "Hasil Latihan dengan Lasso Regression")
-
-        test_data_prediction_lasso = lasso_reg_model.predict(X_test)
-        test_error_lasso = metrics.r2_score(Y_test, test_data_prediction_lasso)
-
-        st.write("### Grafik Hasil Uji:")
-        fig_test_lasso = plot_scatter(Y_test, test_data_prediction_lasso, "Harga yang sebenarnya vs Harga yang diprediksi")
-        st.pyplot(fig_test_lasso)
-        display_data_table(pd.DataFrame({'Harga yang sebenarnya (ribuan $)': Y_test, 'Harga yang diprediksi (ribuan $)': test_data_prediction_lasso}), "Hasil Uji")
-
-        # Menutup figur untuk membebaskan sumber daya (opsional)
-        plt.close(fig_train)
-        plt.close(fig_test)
-        plt.close(fig_train_lasso)
-        plt.close(fig_test_lasso)
-
-    else:
-        st.info("Silakan unggah file CSV (data_testing.csv) untuk data uji.")
-
-if __name__ == '__main__':
-    main()
+# Footer
+st.markdown("**Kontak:** andessitepu221204@gmail.com")
