@@ -9,7 +9,7 @@ import matplotlib.pyplot as plt
 
 @st.cache_resource
 def read_data():
-    hour_df = pd.read_csv('data/hour.csv')
+    hour_df = pd.read_csv('hour.csv')
 
     categorical_columns = ['season', 'yr', 'mnth', 'hr', 'holiday', 'weekday', 'workingday', 'weathersit']
     hour_df[categorical_columns] = hour_df[categorical_columns].astype('category')
