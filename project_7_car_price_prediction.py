@@ -59,7 +59,7 @@ text_weekday = f"Rata-rata peminjaman sepeda casual pada hari kerja: {mean_renta
 text_weekend = f"Rata-rata peminjaman sepeda casual pada hari libur: {mean_rental_casual_weekend:.2f}\nRata-rata peminjaman sepeda registered pada hari libur: {mean_rental_registered_weekend:.2f}"
 
 fig1 = go.Figure(data=[
-    go.Bar(x=['Casual', 'Registered'], y=[mean_rental_casual_workingday, mean_rental_registered_workingday], marker_color=['green', 'red'])
+    go.Bar(x=['Casual', 'Registered'], y=[mean_rental_casual_workingday, mean_rental_registered_workingday], marker_color=['red', 'blue'])
 ])
 fig1.update_layout(
     title='Average Bike Rentals on Weekdays',
@@ -69,7 +69,7 @@ fig1.update_layout(
 )
 
 fig2 = go.Figure(data=[
-    go.Bar(x=['Casual', 'Registered'], y=[mean_rental_casual_weekend, mean_rental_registered_weekend], marker_color=['blue', 'yellow'])
+    go.Bar(x=['Casual', 'Registered'], y=[mean_rental_casual_weekend, mean_rental_registered_weekend], marker_color=['orange', 'green'])
 ])
 fig2.update_layout(
     title='Average Bike Rentals on Weekends',
