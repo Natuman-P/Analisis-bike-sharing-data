@@ -1,6 +1,6 @@
 # Analisis Data dengan Python : Bike Sharing Dataset
 Proyek Akhir dari "Belajar Analisis Data dengan Python" pada Platform Dicoding.
-Proyek analisis data ini membahas dataset tentang peminjaman sepeda dan pengaruh dari variabel seperti suhu, kelembapan, kencang angin, dan situasi cuaca dalam jumlah peminjaman sepeda.
+Proyek analisis data ini membahas dataset tentang peminjaman sepeda dan pengaruh dari variabel seperti suhu, kelembapan, kencang angin, dan situasi cuaca terhadap jumlah peminjaman sepeda.
 Dataset ini terdiri atas beberapa jenis data yaitu:
 
 Data Numerik:
