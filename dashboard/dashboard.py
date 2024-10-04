@@ -18,10 +18,10 @@ def read_data():
         Q1 = data[column].quantile(0.25)
         Q3 = data[column].quantile(0.75)
         IQR = Q3 - Q1
-        lower_bound = Q1 - 1.5 * IQR
-        upper_bound = Q3 + 1.5 * IQR
+        minimum = Q1 - 1.5 * IQR
+        maximum = Q3 + 1.5 * IQR
 
-        data[column] = data[column].apply(lambda x: upper_bound if x > upper_bound else (lower_bound if x < lower_bound else x))
+        data[column] = data[column].apply(lambda x: maximum if x > maximum else (minimum if x < minimum else x))
 
     columns_hour = ['hum', 'windspeed', 'casual', 'registered', 'cnt']
     for column in columns_hour:
@@ -47,17 +47,6 @@ if st.sidebar.checkbox("Tampilkan Ringkasan Dataset"):
     st.subheader("Deskripsi Statistik Dataset")
     st.write(hour_df.describe())
 
-st.sidebar.markdown('**Season:**')
-st.sidebar.markdown('1: Spring')
-st.sidebar.markdown('2: Summer')
-st.sidebar.markdown('1: Fall')
-st.sidebar.markdown('1: Winter')
-
-st.sidebar.markdown('**Weather Situation:**')
-st.sidebar.markdown('1: Clear, Few clouds, Partly cloudy, Partly cloudy')
-st.sidebar.markdown('2: Mist + Cloudy, Mist + Broken clouds, Mist + Few clouds, Mist')
-st.sidebar.markdown('3: Light Snow, Light Rain + Thunderstorm + Scattered clouds, Light Rain + Scattered clouds')
-st.sidebar.markdown('4: Heavy Rain + Ice Pallets + Thunderstorm + Mist, Snow + Fog')
 
 mean_rental_casual_weekend = hour_df[hour_df['holiday'] == 1]['casual'].mean()
 mean_rental_registered_weekend = hour_df[hour_df['holiday'] == 1]['registered'].mean()
@@ -70,7 +59,7 @@ text_weekday = f"Rata-rata peminjaman sepeda casual pada hari kerja: {mean_renta
 text_weekend = f"Rata-rata peminjaman sepeda casual pada hari libur: {mean_rental_casual_weekend:.2f}\nRata-rata peminjaman sepeda registered pada hari libur: {mean_rental_registered_weekend:.2f}"
 
 fig1 = go.Figure(data=[
-    go.Bar(x=['Casual', 'Registered'], y=[mean_rental_casual_workingday, mean_rental_registered_workingday], marker_color=['blue', 'orange'])
+    go.Bar(x=['Casual', 'Registered'], y=[mean_rental_casual_workingday, mean_rental_registered_workingday], marker_color=['green', 'red'])
 ])
 fig1.update_layout(
     title='Average Bike Rentals on Weekdays',
@@ -80,7 +69,7 @@ fig1.update_layout(
 )
 
 fig2 = go.Figure(data=[
-    go.Bar(x=['Casual', 'Registered'], y=[mean_rental_casual_weekend, mean_rental_registered_weekend], marker_color=['green', 'red'])
+    go.Bar(x=['Casual', 'Registered'], y=[mean_rental_casual_weekend, mean_rental_registered_weekend], marker_color=['blue', 'yellow'])
 ])
 fig2.update_layout(
     title='Average Bike Rentals on Weekends',
@@ -123,7 +112,7 @@ plt.figure(figsize=(14, 24))
 st.subheader("Korelasi Jam, Kecepatan Angin, Suhu dan Kelembapan terhadap Jumlah Rental Sepeda")
 
 plt.subplot(6, 1, 1)
-sns.lineplot(data=hour_df, x='hr', y='cnt', color='magenta')
+sns.lineplot(data=hour_df, x='hr', y='cnt', color='red')
 plt.title('Pengaruh Hour Terhadap Jumlah Peminjaman Sepeda')
 plt.xlabel('Hour')
 plt.ylabel('Jumlah Peminjaman Sepeda')
@@ -137,7 +126,7 @@ st.pyplot(fig)
 
 plt.figure(figsize=(14, 24))
 plt.subplot(6, 1, 2)
-sns.lineplot(data=hour_df, x='windspeed', y='cnt', color='red')
+sns.lineplot(data=hour_df, x='windspeed', y='cnt', color='orange')
 plt.title('Pengaruh Windspeed Terhadap Jumlah Peminjaman Sepeda')
 plt.xlabel('Windspeed')
 plt.ylabel('Jumlah Peminjaman Sepeda')
@@ -147,7 +136,7 @@ st.pyplot(fig)
 
 plt.figure(figsize=(14, 24))
 plt.subplot(6, 1, 3)
-sns.lineplot(data=hour_df, x='temp', y='cnt', color='blue')
+sns.lineplot(data=hour_df, x='temp', y='cnt', color='green')
 plt.title('Pengaruh Temperature Terhadap Jumlah Peminjaman Sepeda')
 plt.xlabel('Temperature')
 plt.ylabel('Jumlah Peminjaman Sepeda')
@@ -157,7 +146,7 @@ st.pyplot(fig)
 
 plt.figure(figsize=(14, 24))
 plt.subplot(6, 1, 4)
-sns.lineplot(data=hour_df, x='hum', y='cnt', color='orange')
+sns.lineplot(data=hour_df, x='hum', y='cnt', color='purple')
 plt.title('Pengaruh Humidity Terhadap Jumlah Peminjaman Sepeda')
 plt.xlabel('Humidity')
 plt.ylabel('Jumlah Peminjaman Sepeda')
