@@ -1,6 +1,6 @@
-matplotlib
-numpy
-pandas
-scipy
-seaborn
-plotly
+streamlit==1.15.0
+pandas==1.5.3
+numpy==1.21.6
+plotly==5.15.0
+seaborn==0.11.2
+matplotlib==3.4.3
