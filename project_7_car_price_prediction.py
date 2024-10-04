@@ -9,7 +9,7 @@ import matplotlib.pyplot as plt
 # Fungsi untuk membaca data
 @st.cache_resource
 def read_data():
-    hour_df = pd.read_csv('/content/hour.csv')
+    hour_df = pd.read_csv('hour.csv')
 
     # Mengubah kolom-kolom ke tipe data kategorikal di hour_df
     categorical_columns = ['season', 'yr', 'mnth', 'hr', 'holiday', 'weekday', 'workingday', 'weathersit']
