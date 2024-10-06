@@ -41,10 +41,12 @@ Ikuti langkah-langkah berikut untuk menjalankan aplikasi dashboard ini:
    ```bash
    streamlit run dashboard.py
    ```
+   
 5. Dashboard akan terbuka di browser default Anda pada alamat:
    ```bash
    http://localhost:8501
    ```
+   
 ## Penggunaan
 
 - **Tampilkan Dataset:** Centang opsi "Tampilkan Dataset" di sidebar untuk melihat dataset asli.
