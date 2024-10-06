@@ -38,17 +38,13 @@ Ikuti langkah-langkah berikut untuk menjalankan aplikasi dashboard ini:
 2. **Simpan file dataset `hour.csv`** di direktori yang sama dengan file Python.
 3. Buka terminal/command prompt dan arahkan ke direktori tempat file tersebut berada.
 4. Jalankan perintah berikut untuk menjalankan dashboard:
-
    ```bash
    streamlit run dashboard.py
    ```
-
 5. Dashboard akan terbuka di browser default Anda pada alamat:
-
    ```bash
    http://localhost:8501
    ```
-
 ## Penggunaan
 
 - **Tampilkan Dataset:** Centang opsi "Tampilkan Dataset" di sidebar untuk melihat dataset asli.
