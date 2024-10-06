@@ -40,10 +40,8 @@ Ikuti langkah-langkah berikut untuk menjalankan aplikasi dashboard ini:
 4. Jalankan perintah berikut untuk menjalankan dashboard:
 
    ```bash
-   streamlit run nama_file.py
+   streamlit run dashboard.py
    ```
-
-   Gantilah `nama_file.py` dengan nama file Python Anda (misalnya, `bike_share_dashboard.py`).
 
 5. Dashboard akan terbuka di browser default Anda pada alamat:
 
